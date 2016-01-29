@@ -1,7 +1,6 @@
 # IT-eksamensprojekt
 In this project I would like to use (This list is subject to change.):
 - [Firebase](https://www.firebase.com/docs/)
-- [Angular](https://docs.angularjs.org/api)
 - [Flask](http://flask.pocoo.org/docs/0.10/)
 - [Foundation](http://foundation.zurb.com/sites/docs/)
 
