@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% set active_page = 'Test'%}
+{% block body %}
+  <div class="container-fluid">
+      <p>
+        {% if name %}
+          {{get_req}}
+        {% else %}
+          <h3>pepe</h3>
+        {% endif %}
+      </p>
+      <p>
+        {{a}}
+      </p>
+  </div>
+{% endblock %}

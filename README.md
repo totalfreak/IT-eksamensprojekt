@@ -15,3 +15,8 @@ Goals are as follows(More may be added in the future):
 - Record emote statistics.
 - Web configurable messages on a specific time
 - Data visualization
+
+## IDEAS FOR FUNCTIONALITY
+- Mememinister at random times
+- Pointsystem
+- Use points for custom responses
