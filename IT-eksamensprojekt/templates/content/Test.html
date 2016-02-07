@@ -1,16 +1,28 @@
 {% extends "layout.html" %}
-{% set active_page = 'Test'%}
 {% block body %}
-  <div class="container-fluid">
-      <p>
-        {% if name %}
-          {{get_req}}
-        {% else %}
-          <h3>pepe</h3>
-        {% endif %}
-      </p>
-      <p>
-        {{a}}
-      </p>
+
+<form role="form" class="col-sm-4" action="{{ url_for('hvadsiger') }}" method="POST">
+
+  <div class="form-group">
+    <label>URL til billede:</label>
+    <input name="img_url" type="text" class="form-control">
   </div>
+
+  <div class="radio">
+    <label>
+      <input type="radio" name="option" value="Yes" >Yes</label>
+  </div>
+
+  <div class="radio">
+    <label>
+      <input type="radio" name="option" value="No" >No</label>
+  </div>
+
+
+  <input type="submit" class="btn btn-default" value="Submit!" />
+</form>
+
+  {{data}}
+
+  {{radio}}
 {% endblock %}

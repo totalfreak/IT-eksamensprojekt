@@ -2,7 +2,7 @@
 In this project I would like to use (This list is subject to change.):
 - [Firebase](https://www.firebase.com/docs/)
 - [Flask](http://flask.pocoo.org/docs/0.10/)
-- [Foundation](http://foundation.zurb.com/sites/docs/)
+- [Bootstrap](http://getbootstrap.com/)
 
 I have used Firebase experimentally earlier, but nothing extensive. I have used neither Flask or Foundation before.
 
@@ -20,3 +20,4 @@ Goals are as follows(More may be added in the future):
 - Mememinister at random times
 - Pointsystem
 - Use points for custom responses
+- A "!hvadsiger", that will either evaluate to "Yes", "No" or maybe. This will post images of either thumbs up or down fetched from a database of images submitted through the website.
