@@ -3,7 +3,9 @@
 from slacker import Slacker
 from slackclient import SlackClient
 import requests
+import database
 import json
+import random
 
 token = "xoxb-20271825763-77FYy5JzaRFxmPliJ5Q5s5g1"
 
@@ -20,11 +22,11 @@ def post_message(text):
     slack.chat.post_message("#random",text,"dank-bot",'','','','','','','',":dank:")
 
 def get_id(text,user):
-    if text == '!id':
+    if text.split()[0] == 'id':
         post_message('@' + users_id[user] + ': Your ID is ' + user)
 
 def get_toppost(text):
-    if text.split()[0] == "!toppost":
+    if text.split()[0] == "toppost":
         subreddit = text.split()[1]
         json_raw=requests.get('https://www.reddit.com/r/' + subreddit + '/top/.json?sort=top&t=day/',
                               headers={"user-agent":"slackbot-schoolproject (By /u/MrAagaard)"}).text
@@ -34,3 +36,19 @@ def get_toppost(text):
         imgur_link = json_info['data']['children'][0]['data']['url']
 
         post_message("*Title*: " + post_title + " \n " + imgur_link + " \n " + "*From subreddit*: " + subreddit)
+
+def hvad_siger(text):
+    if text.split()[0] == "hvadsiger":
+        img_dict = database.get('hvadsiger', 'img_url', 'img_type')
+        randint = random.randint(0,1)
+        y_or_n = ""
+        img_bool = []
+        for img in img_dict:
+            if randint == 0 and img_dict[img] == "No":
+                img_bool.append(img)
+                y_or_n = "Nej :biblethumb:"
+            elif randint == 1 and img_dict[img] == "Yes":
+                img_bool.append(img)
+                y_or_n = "Ja :pogchamp:"
+        img_url = img_bool[random.randint(0,len(img_bool)-1)]
+        post_message(img_url + " *" + y_or_n + "!*")

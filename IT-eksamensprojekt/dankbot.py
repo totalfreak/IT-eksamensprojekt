@@ -23,19 +23,17 @@ sc = SlackClient(token)
 # if the connection is succesful start an infinite loop, which reads the data from the real time messaging api
 if sc.rtm_connect():
     while True:
-        # reads data through slack's real time api and stores it in variable data
-        data = sc.rtm_read()
-        # action is now an array of information bound to different types of events. All events can be found here https://api.slack.com/events
-        for action in data:
-            # start of message checking
-            if action['type']  == 'message':
-                # tries to find something to execute
-                try:
+
+        data = sc.rtm_read() # reads data through slack's real time api and stores it in variable data
+        for action in data: # action is now an array of information bound to different types of events. All events can be found here https://api.slack.com/events
+            if action['type']  == 'message': # start of message checking
+                try: # tries to find something to execute
                     text = action['text'].lower()
-
-                    commands.get_id(text,action['user'])
-                    commands.get_toppost(text)
-
+                    if text[0] == "!":
+                        text = text[1:]
+                        commands.get_id(text, action['user'])
+                        commands.get_toppost(text)
+                        commands.hvad_siger(text)
 
                 # catches errors and prints them out
                 except Exception, e:
