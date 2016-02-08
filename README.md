@@ -17,7 +17,10 @@ Goals are as follows(More may be added in the future):
 - Data visualization
 
 ## IDEAS FOR FUNCTIONALITY
-- Mememinister at random times
-- Pointsystem
-- Use points for custom responses
-- A "!hvadsiger", that will either evaluate to "Yes", "No" or maybe. This will post images of either thumbs up or down fetched from a database of images submitted through the website.
+- Mememinister at random times.
+- Pointsystem.
+- Use points for custom responses.
+- A "!hvadsiger", that will either evaluate to "Yes" or "No". This will post images of either thumbs up or down fetched from a database of images submitted through the website.
+
+### Feature suggestions
+Click [here](https://github.com/Aagaarrd/IT-eksamensprojekt/issues/1) to suggest features.

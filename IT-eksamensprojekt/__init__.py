@@ -17,12 +17,5 @@ def hvadsiger():
     data = database.get('hvadsiger', 'img_url', 'img_type')
     return render_template('content/hvadsiger.html', data=data)
 
-
-@app.route("/something", methods=["GET", "POST"])
-def do_something():
-    data = request.json
-    radio = request.form['option']
-    return render_template('content/test.html')
-
 if __name__ == "__main__":
     app.run()
