@@ -34,7 +34,8 @@ if sc.rtm_connect():  # if the connection is succesful start an infinite loop, w
                         commands.post_id(text, action['user'])
                         commands.post_toppost(text)
                         commands.post_hvadsiger(text)
-                        commands.post_points(text, action['user'])
+                        commands.points_post(text, action['user'])
+                        commands.points_roulette(text, action['user'])
 
                 except Exception, e:  # catches errors and prints them out
                     print "Exception: " + e.message

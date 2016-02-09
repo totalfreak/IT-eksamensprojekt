@@ -38,7 +38,6 @@ def post_message(text):
     slack.chat.post_message("#random", text, "dank-bot",
                             '', '', '', '', '', '', '', ":dank:")
 
-
 def get_active_users():
     r = requests.get('https://slack.com/api/users.list?token=' +
                      token + '&presence=1&pretty=1')
@@ -49,7 +48,6 @@ def get_active_users():
             if user['presence'] == 'active':
                 active_users.append(user['id'])
     return active_users
-
 
 def get_all_users():
     r = requests.get('https://slack.com/api/users.list?token=' +
@@ -66,7 +64,6 @@ def post_id(text, user):
     if text.split()[0] == 'id':
         post_message('@' + users_id[user] + ': Your ID is ' + user)
 
-
 def post_toppost(text):
     if text.split()[0] == "toppost":
         subreddit = text.split()[1]
@@ -80,11 +77,10 @@ def post_toppost(text):
         post_message("*Title*: " + post_title + " \n " +
                      imgur_link + " \n " + "*From subreddit*: " + subreddit)
 
-
-def post_points(text, user):
+def points_post(text, user):
     if text.split()[0] == "points":
         points_dict = points.get_points()
-        post_message(users_id[user] + ": " + str(points_dict[users_id[user]]))
+        post_message(users_id[user].title() + ": " + str(points_dict[users_id[user]]))
 
 def post_hvadsiger(text):
     if text.split()[0] == "hvadsiger":
@@ -101,3 +97,24 @@ def post_hvadsiger(text):
                 y_or_n = "Ja :pogchamp:"
         img_url = img_bool[random.randint(0, len(img_bool) - 1)]
         post_message(img_url + " *" + y_or_n + "!*")
+
+## point system
+def points_roulette(text, user):
+    if text.split()[0] == "roulette":
+        gamble_point_amount = int(text.split()[1])
+        user_point_amount = points.get_points()[users_id[user]]
+        if gamble_point_amount <= user_point_amount and gamble_point_amount >= 0:
+            w_or_l = random.randint(0, 1)
+            print w_or_l
+            if w_or_l == 1:
+                user_point_amount += gamble_point_amount
+                database.put('members/'+users_id[user]+'/points', user_point_amount)
+                post_message(users_id[user].title() + " vandt " + str(gamble_point_amount) + " point! :feelsgoodman:")
+            elif w_or_l == 0:
+                user_point_amount -= gamble_point_amount
+                database.put('members/'+users_id[user]+'/points', user_point_amount)
+                post_message(users_id[user].title() + " tabte " + str(gamble_point_amount) + " point! :feelsbadman:")
+        else:
+            print "Gamble amount", gamble_point_amount
+            print "Users points", user_point_amount
+            post_message("Der opstod en fejl :feelsbadman:")
