@@ -1,4 +1,5 @@
-it-eksamen_env/
+venv_linux/
+venv/
 python-firebase/
 IT-eksamensprojekt/src
 *.pyc

@@ -13,9 +13,10 @@ def hvadsiger():
     img_url = request.args.get('img_url') # Link to the image
     img_type = request.args.get('option') # Boolean value whether or not it's a thumbs up or down
     if (img_url or img_type) != None:
-        database.post("hvadsiger", "img_url", img_url, "img_type", img_type)
-    data = database.get('hvadsiger', 'img_url', 'img_type')
+        database.post("hvadsiger", {"img_url": img_url, "img_type": img_type})
+    data = database.get_unique_id('hvadsiger', 'img_url', 'img_type')
     return render_template('content/hvadsiger.html', data=data)
 
+
 if __name__ == "__main__":
-    app.run()
+    app.run(port="5002")

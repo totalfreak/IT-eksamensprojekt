@@ -1,24 +1,35 @@
 # http://ozgur.github.io/python-firebase/
 
-from firebase import firebase
+# from firebase import firebase
 import requests
 import json
 
 firebase_url = "https://iteksamen.firebaseio.com/"
-firebase = firebase.FirebaseApplication(url, None)
+# firebase = firebase.FirebaseApplication(firebase_url, None)
 
-def post(database, key_name ,key, value_name, value):
-     firebase.post('/'+database, {key_name: key, value_name: value})
+## todo: correct post function. Rewrite get function to work with members table and not just hvadsiger
 
-def get(database, key_name, value_name):
+def post(table, url, msg):
+    msg_json = json.dumps(data)
+    requests.post(firebase_url+table+url+".json", msg_json)
+
+
+def get_unique_id(table, key_name, value_name):
     key_value = {}
-    r = firebase.get('/'+database, None)
+    r = requests.get(firebase_url+table+".json")
+    r = json.loads(r.text)
     for pair in r:
         key = r[pair][key_name]
         value = r[pair][value_name]
         key_value[key] = value
     return key_value
 
+
+def get(table, url):
+    table_data = requests.get(firebase_url+table+url+".json")
+    table_data = json.loads(table_data.text)
+    return table_data
+
 def put(url, value):
     to_post = json.dumps(value)
-    r = requests.put(firebase_url+'/'+url, data=to_post)
+    r = requests.put(firebase_url+url+".json", data=to_post)
