@@ -42,7 +42,7 @@ if sc.rtm_connect():  # if the connection is succesful start an infinite loop, w
                     print "Exception: " + e.message
             if DEBUG:
                 print data
-            time.sleep(1)
+            time.sleep(0.1)
         if (int(round(time.time())) - current_time['points']) > 300:
             points.give_active_users_points()
             current_time['points'] = int(round(time.time()))

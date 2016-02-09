@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, url_for
 import json
 import database
+import commands
+import points
 
 app = Flask(__name__)
 
@@ -17,6 +19,11 @@ def hvadsiger():
     data = database.get_unique_id('hvadsiger', 'img_url', 'img_type')
     return render_template('content/hvadsiger.html', data=data)
 
+@app.route('/points')
+def pointspage():
+    points_dict = points.get_points()
+    print type(points_dict)
+    return render_template('content/points.html', data=points_dict.items())
 
 if __name__ == "__main__":
-    app.run(port="5002")
+    app.run(debug = True)
