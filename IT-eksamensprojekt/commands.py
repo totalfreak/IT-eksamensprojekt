@@ -30,6 +30,10 @@ users = {'aagaard': 'U0C5TCHEK',
 # flips keys and values in the dict 'users'
 users_id = dict(zip(users.values(), users.keys()))
 
+def initiator(): # Use this to initiate columns
+    for name in users:
+        requests.put('https://iteksamen.firebaseio.com/members/'+name+'/roulette/winnings.json','0')
+
 slack = Slacker(token)
 
 # slack utilities
@@ -77,11 +81,6 @@ def post_toppost(text):
         post_message("*Title*: " + post_title + " \n " +
                      imgur_link + " \n " + "*From subreddit*: " + subreddit)
 
-def points_post(text, user):
-    if text.split()[0] == "points":
-        points_dict = points.get_points()
-        post_message(users_id[user].title() + ": " + str(points_dict[users_id[user]]))
-
 def post_hvadsiger(text):
     if text.split()[0] == "hvadsiger":
         img_dict = database.get_unique_id('hvadsiger', 'img_url', 'img_type')
@@ -99,21 +98,46 @@ def post_hvadsiger(text):
         post_message(img_url + " *" + y_or_n + "!*")
 
 ## point system
+def points_post(text, user):
+    if text.split()[0] == "points":
+        points_dict = points.get_points()
+        post_message(users_id[user].title() + ": " + str(points_dict[users_id[user]]))
+
 def points_roulette(text, user):
     if text.split()[0] == "roulette":
         gamble_point_amount = int(text.split()[1])
         user_point_amount = points.get_points()[users_id[user]]
         if gamble_point_amount <= user_point_amount and gamble_point_amount >= 0:
             w_or_l = random.randint(0, 1)
-            print w_or_l
             if w_or_l == 1:
                 user_point_amount += gamble_point_amount
                 database.put('members/'+users_id[user]+'/points', user_point_amount)
                 post_message(users_id[user].title() + " vandt " + str(gamble_point_amount) + " point! :feelsgoodman:")
+
+                # Doesn't currently work - database.get() returns a NoneType for some reason
+                # winnings = database.get('members/' + users_id[user] + 'roulette/winnings')
+                # print type(winnings)
+                # winnings += gamble_point_amount
+                # database.put('members/' + users_id[user] + 'roulette/winnings', winnings)
+                #
+                # wins = database.get('members/' + users_id[user] + 'roulette/wins')
+                # wins = wins + 1
+                # database.put('members/' + users_id[user] + 'roulette/winnings', wins)
+
             elif w_or_l == 0:
                 user_point_amount -= gamble_point_amount
                 database.put('members/'+users_id[user]+'/points', user_point_amount)
-                post_message(users_id[user].title() + " tabte " + str(gamble_point_amount) + " point! :feelsbadman:")
+                post_message(users_id[user].title() + " tabte " + str(gamble_point_amount) + " point... :feelsbadman:")
+
+                # Doesn't currently work - database.get() returns a NoneType for some reason
+                # winnings = database.get('members/' + users_id[user] + 'roulette/winnings')
+                # print type(winnings)
+                # winnings -= gamble_point_amount
+                # database.put('members/' + users_id[user] + 'roulette/winnings', winnings)
+                #
+                # losses = database.get('members/' + users_id[user] + 'roulette/losses')
+                # losses += 1
+                # database.put('members/' + users_id[user] + 'roulette/losses', losses)
         else:
             print "Gamble amount", gamble_point_amount
             print "Users points", user_point_amount

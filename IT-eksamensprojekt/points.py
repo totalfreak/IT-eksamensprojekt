@@ -13,7 +13,7 @@ def give_active_users_points():
         database.put("members/"+name+"/points", user_point)
 
 def get_points(): # Returns a dictionary of user each users name and their number of points e.g. {'aagaard': 42, 'benjamin', 2 ...}
-    members = database.get('members','')
+    members = database.get('members')
     points_dict = {}
     for user in members:
         points_dict.update({user: members[user]['points']})

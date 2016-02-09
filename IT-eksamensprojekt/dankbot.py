@@ -20,7 +20,8 @@ users_id = dict(zip(users.values(), users.keys()))
 
 sc = SlackClient(token)
 
-current_time = int(round(time.time()))
+current_time = {}
+current_time['points'] = int(round(time.time()))
 
 if sc.rtm_connect():  # if the connection is succesful start an infinite loop, which reads the data from the real time messaging api
     while True:
@@ -42,8 +43,8 @@ if sc.rtm_connect():  # if the connection is succesful start an infinite loop, w
             if DEBUG:
                 print data
             time.sleep(1)
-        if (int(round(time.time())) - current_time) > 300:
+        if (int(round(time.time())) - current_time['points']) > 300:
             points.give_active_users_points()
-            current_time = int(round(time.time()))
+            current_time['points'] = int(round(time.time()))
 else:
     print "Connection Failed, invalid token?"

@@ -25,8 +25,8 @@ def get_unique_id(table, key_name, value_name):
     return key_value
 
 
-def get(table, url):
-    table_data = requests.get(firebase_url+table+url+".json")
+def get(url):
+    table_data = requests.get(firebase_url+url+".json")
     table_data = json.loads(table_data.text)
     return table_data
 
