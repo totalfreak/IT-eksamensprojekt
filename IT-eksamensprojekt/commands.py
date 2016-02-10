@@ -102,7 +102,7 @@ def points_post(text, user):
     if text.split()[0] == "points":
         points_dict = points.get_points()
         post_message(users_id[user].title() + ": " + str(points_dict[users_id[user]]))
-
+##Daniel was here
 def points_roulette(text, user):
     if text.split()[0] == "roulette":
         gamble_point_amount = int(text.split()[1])
